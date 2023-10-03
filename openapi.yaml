@@ -1,0 +1,77 @@
+openapi: 3.0.3
+info:
+  title: FinanceAPP
+  description: FinanceAPP
+  version: 2022-04-01
+servers:
+  - url: 'http://localhost:9090/v1'
+    description: 'Local'
+paths:
+  /signup:
+    summary: Signup for users to get account
+    description:  User account signup
+    post:
+      summary: A POST request to sign up for an account
+      security: []
+      operationId: signUp
+      tags:
+        - Signup
+      description: sign up post
+      requestBody:
+        description: signup request object
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: full user name
+                  type: string
+                  example: john doe
+                email:
+                  type: string
+                  description: valid email
+                  example: john.doe@example.com
+                password:
+                  type: string
+                  description: strong password
+                  example: secureP@ssword
+                  minLength: 6
+                  maxLength: 16
+                confirm_password:
+                  type: string
+                  example: secureP@ssword
+                  minLength: 6
+                  maxLength: 16
+              required:
+                - name
+                - password
+                - email
+                - confirm_password
+      responses:
+        '200':
+          description: succesfully signed up
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                    example: Joe doe
+                  email:
+                    type: string
+                    example: john.doe@example.com
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                  error:
+                    type: string
+tags:
+  - name: Signup
+    description: signup description
